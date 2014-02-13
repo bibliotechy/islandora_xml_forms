@@ -214,14 +214,6 @@ function xml_form_builder_transform_document($transform, $source_document, $obje
     $document = $xslt->transformToDoc($source_document);
     if ($document) {
       $xpath = new DOMXPath($document);
-      // Set the Label.
-      $results = $xpath->query("*[local-name()='title']");
-      if ($results->length > 0) {
-        $results->item(0)->nodeValue = htmlspecialchars($object->label);
-      }
-      else {
-        watchdog('xml_form_builder', 'No "title" element in the transformed DC into which to set the object label. Make sure that one is created in the selected transform.', array(), WATCHDOG_WARNING, l($object->label, "islandora/object{$object->id}"));
-      }
       // Set the Pid.
       $results = $xpath->query("*[local-name()='identifier']");
       if ($results->length > 0) {
